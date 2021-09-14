@@ -1,0 +1,27 @@
+ASSUME CS:CODE, DS DATA
+
+DATA SEGMENT
+    NUM DB 07H
+    MSG DB "POSITIVE NUMBER..$"
+    MSG2 DB "NEGATIVE NUMBER$"
+DATA ENDS
+
+CODE SEGMENT
+START:  MOV AX, DATA
+        MOV DS, AX
+        ROL NUM, 1
+        JNC POS
+        JMP NEGA
+        POS: MOV AH,09H
+        MOV DX, OFFSET MSG
+        INT 21H
+        JMP EXIT
+        
+NEGA:   MOV AH,09H
+        MOV DX, OFFSET MSG2
+        INT 21H
+        
+EXIT:   MOV AH,4CH
+        INT 21H
+CODE ENDS
+END START
